@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\productModel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,7 +12,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view("welcome");
+        $products = productModel::orderBy('id', 'desc')->get();
+        return view("welcome", compact("products"));
     }
 
     /**
@@ -35,7 +37,8 @@ class HomeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $showProduct = productModel::findOrFail($id);
+        return view("details", compact("showProduct"));
     }
 
     /**

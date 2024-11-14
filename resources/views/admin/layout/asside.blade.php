@@ -8,13 +8,13 @@
             <nav>
                 <ul class="space-y-4">
                     <li>
-                        <a href="#" class="flex items-center space-x-3 text-lg hover:text-blue-400">
+                        <a href="{{ route('admin') }}" class="flex items-center space-x-3 text-lg hover:text-blue-400">
                             <i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center space-x-3 text-lg hover:text-blue-400 {{ request()->routeIs('adminProduct') ? 'text-blue-400' : '' }}">
+                        <a href="{{ route('adminProduct') }}" class="flex items-center space-x-3 text-lg hover:text-blue-400 {{ request()->routeIs('adminProduct') ? 'text-blue-400' : '' }}">
                             <i class="fas fa-box"></i>
                             <span>Products</span>
                         </a>
