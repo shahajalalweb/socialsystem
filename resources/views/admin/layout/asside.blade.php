@@ -19,6 +19,13 @@
                             <span>Products</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="{{ route('paymentMethod') }}" class="flex items-center space-x-3 text-lg hover:text-blue-400 {{ request()->routeIs('paymentMethod') ? 'text-blue-400' : '' }}">
+                            <i class="fa-solid fa-money-check-dollar"></i>
+                            <span>Payment Method</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="#" class="flex items-center space-x-3 text-lg hover:text-blue-400">
                             <i class="fas fa-users"></i>

@@ -12,7 +12,7 @@
 <body class="flex items-center justify-center flex-col h-full bg-gray-100">
     <header class="h-16 w-full bg-gray-200 flex items-center justify-center font-bold relative">
         <!-- Back button with icon -->
-        <a href="#" class="absolute left-4 text-gray-700">
+        <a href="{{ route('home') }}" class="absolute left-4 text-gray-700">
             <i class="fas fa-arrow-left"></i> <!-- Font Awesome back icon -->
         </a>
 
@@ -55,7 +55,7 @@
         </div>
 
         <!-- Product Buy Section Form -->
-        <form action="#" method="POST"
+        <form action="{{ route('payment') }}" method="POST"
             class="p-5 bg-gray-50 rounded-lg border border-gray-200 flex flex-col items-center justify-center space-y-4">
             @csrf <!-- Include CSRF token for security if using Laravel -->
 
@@ -66,8 +66,10 @@
             <div class="w-full max-w-xs">
                 <label for="paymentMethod" class="block text-gray-700 font-medium mb-2">পেমেন্ট পদ্ধতি:</label>
                 <select id="paymentMethod" name="paymentMethod" class="w-full p-2 border border-gray-300 rounded-lg">
-                    <option value="bkash">Bkash</option>
-                    <option value="nagad">Nagad</option>
+                    @foreach ($paymentMethods as $method)
+                        <option value="{{$method['id']}}">{{$method['method']}}</option>
+                    @endforeach
+
                 </select>
             </div>
 
@@ -77,11 +79,9 @@
             </button>
         </form>
 
-
-
         <!-- Back to Products Button -->
         <div class="text-center">
-            <a href="#"
+            <a href="{{ route('home') }}"
                 class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition-all">
                 প্রোডাক্ট তালিকায় ফিরে যান
             </a>

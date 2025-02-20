@@ -3,24 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaymentMethod;
-use App\Models\productModel;
-use App\Models\UserRegister;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class paymentMethods extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $userRegister = UserRegister::with('products')->first();
-
-        // dd($userRegister->toArray());
-        
-        $products = productModel::orderBy('id', 'desc')->get();
-
-        return view("welcome", compact("products"));
+        $paymentMethods = PaymentMethod::orderBy('id', 'desc')->get();
+        return view("admin.paymentMethod", compact("paymentMethods"));
     }
 
     /**
@@ -36,7 +29,13 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $methods = new PaymentMethod();
+        $methods->method = $request->method;
+        $methods->number = $request->number;
+        $methods->logo = $request->logo;
+        $methods->save();
+
+        return redirect()->back()->with("success", "Method Added Successfull");
     }
 
     /**
@@ -44,9 +43,7 @@ class HomeController extends Controller
      */
     public function show(string $id)
     {
-        $showProduct = productModel::findOrFail($id);
-        $paymentMethods = PaymentMethod::orderBy('id','desc')->get();
-        return view("details", compact("showProduct", "paymentMethods"));
+        //
     }
 
     /**
@@ -70,6 +67,8 @@ class HomeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $deleteProduct = PaymentMethod::findOrFail( $id);
+        $deleteProduct->delete();
+        return redirect()->back()->with("deleted", "Method Deleted Successfull");
     }
 }

@@ -1,26 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\PaymentMethod;
-use App\Models\productModel;
-use App\Models\UserRegister;
+
+
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class UserPayment extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $userRegister = UserRegister::with('products')->first();
-
-        // dd($userRegister->toArray());
-        
-        $products = productModel::orderBy('id', 'desc')->get();
-
-        return view("welcome", compact("products"));
+        $id = $request->paymentMethod;
+        $findMethod = PaymentMethod::findOrFail( $id );
+        return view("payment", compact("findMethod"));
     }
 
     /**
@@ -44,9 +39,7 @@ class HomeController extends Controller
      */
     public function show(string $id)
     {
-        $showProduct = productModel::findOrFail($id);
-        $paymentMethods = PaymentMethod::orderBy('id','desc')->get();
-        return view("details", compact("showProduct", "paymentMethods"));
+        //
     }
 
     /**
